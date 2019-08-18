@@ -1,0 +1,47 @@
+// libraries
+@import 'libs';
+
+// assets
+@import 'assets/smart-grid';  // mixins smartgrid.js
+@import 'assets/vars';  // переменные
+@import 'assets/mixins';  // миксины
+@import 'assets/fonts';  // шрифты
+@import 'assets/base';  // общие стили
+@import 'assets/animation';  // анимации
+@import 'assets/class'; // main style
+@import 'assets/interface'; // main style
+
+
+// sass dima
+@import 'header';
+@import 'footer';
+@import '404';
+
+
+body{
+ background: pink url('../img/bg.jpg') no-repeat center;
+ background-size: cover;
+}
+
+.productItems{
+	 @include row-flex();
+	 justify-content: space-around;
+}
+	
+.productItem{
+  @include col();
+  @include size(4);
+  @include size-md(6);
+  @include size-xs(12);
+
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  &__title{
+   margin-bottom: 10px;
+   font-size: 24px;
+   font-weight: bold;
+   text-align: center;
+  }
+}

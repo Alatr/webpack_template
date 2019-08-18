@@ -1,0 +1,84 @@
+// Global class
+.main{
+  padding-top: 80px;
+}
+.align--top{
+  align-items: flex-start;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+.js-input-focus:not(#some) {
+  .main-form__text{
+    left: -300%;
+  }
+}
+.js-no-valid:not(#some)+.main-form-content {
+  .wrap-icon{
+    svg{
+      fill: red;
+    }
+  }
+}
+.js-no-valid:not(#some){
+  border-bottom: 1px solid red;
+}
+.tablet--hidden:not(#some){
+  @include to(768px){
+    display: none;
+  }
+}
+.desctop--hidden:not(#some){
+  @include from(769px){
+    display: none;
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+.menu-btn:not(#some) {
+  position: fixed;
+  background-color: $mc;
+}
+
+.button-size--md{
+}
+
+.visible--hidden:not(#some){
+  display: none;
+}
+.overflow--hidden:not(#some){
+  overflow: hidden;
+}
+
+.button-fill{
+  background-color: $mc;
+}
+
+
+// hover card active 
+
+.build-hover-card--visible:not(#some){
+  visibility: visible;
+  display: block;
+}
+
+.color--wc{
+  color: $wc;
+}
+.color--mc{
+  color: $mc;
+}
