@@ -1,5 +1,5 @@
 const path = require('path');
-
+const fs = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -9,6 +9,11 @@ const PATHS = {
   dist: path.join(__dirname, '../dist'),
   assets: 'assets/'
 }
+
+// Pages const for HtmlWebpackPlugin
+// see more: https://github.com/vedees/webpack-template/blob/master/README.md#html-dir-folder
+const PAGES_DIR = PATHS.src
+const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.html'))
 
 module.exports = {
   externals: {
@@ -98,16 +103,16 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].[hash].css`
     }),
-    new HtmlWebpackPlugin ({
-      template: `${PATHS.src}/index.html`,
-      filename: 'index.html',
-      inject: false
-    }),
+    
     new CopyWebpackPlugin ([
       {from: `${PATHS.src}/assets/img`, to: `${PATHS.assets}img`},
       {from: `${PATHS.src}/assets/uploads`, to: `${PATHS.assets}uploads`},
       {from: `${PATHS.src}/assets/fonts`, to: `${PATHS.assets}fonts`},
       {from: `${PATHS.src}/static`, to: 'static'},
-    ])
+    ]),
+    ...PAGES.map(page => new HtmlWebpackPlugin({
+      template: `${PAGES_DIR}/${page}`,
+      filename: `./${page}`
+    }))
   ],
 }
