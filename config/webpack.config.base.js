@@ -12,8 +12,8 @@ const PATHS = {
 
 // Pages const for HtmlWebpackPlugin
 // see more: https://github.com/vedees/webpack-template/blob/master/README.md#html-dir-folder
-const PAGES_DIR = PATHS.src
-const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.html'))
+const PAGES_DIR = `${PATHS.src}/assets/pug/pages/`
+const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'))
 
 module.exports = {
   externals: {
@@ -51,6 +51,10 @@ module.exports = {
       test: /\.jsx$/,
       loader: 'babel-loader',
       exclude: '/node_modules/'
+    },
+    {
+      test: /\.pug$/,
+      loader: 'pug-loader?pretty=true'
     },
     {
       test: /\.(png|jpg|gif|svg|webp|jpeg)$/,
@@ -112,7 +116,7 @@ module.exports = {
     ]),
     ...PAGES.map(page => new HtmlWebpackPlugin({
       template: `${PAGES_DIR}/${page}`,
-      filename: `./${page}`,
+      filename: `./${page.replace(/\.pug/,'.html')}`,  //html
       title: `${page}`,
       inject: false
     }))
