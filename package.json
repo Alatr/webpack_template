@@ -48,6 +48,8 @@
     "smart-grid": "^2.1.2",
     "style-loader": "^1.0.0",
     "svg-sprite-loader": "^4.1.6",
+    "svg-transform-loader": "^2.0.8",
+    "svgo-loader": "^2.2.1",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0",

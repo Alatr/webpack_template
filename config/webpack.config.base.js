@@ -3,6 +3,7 @@ const fs = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -99,8 +100,23 @@ module.exports = {
           options: { sourceMap: true, config: {'path': `./postcss.config.js` }}
         }
       ]
-    }
-  ]
+    },
+      {
+        test: /\.svg$/,
+        use: [{
+          loader: 'svg-sprite-loader',
+          options: {
+            extract: true,
+            spriteFilename: './static/icons.svg',
+            runtimeCompat: true
+          }
+        },
+          'svg-transform-loader',
+          'svgo-loader'
+        ]
+      }
+      
+  ],
 },
 
   plugins: [
@@ -119,6 +135,10 @@ module.exports = {
       filename: `./${page.replace(/\.pug/,'.html')}`,  //html
       title: `${page}`,
       inject: false
-    }))
+    })),
+    new SpriteLoaderPlugin({
+      plainSprite: true
+    })
   ],
 }
+
