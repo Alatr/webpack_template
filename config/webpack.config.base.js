@@ -24,6 +24,11 @@ module.exports = {
   entry: {
     app: PATHS.src
   },
+  output: {
+    filename: `${PATHS.assets}js/[name].[hash].js`,
+    path: PATHS.dist,
+    // publicPath: "/"
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -36,13 +41,12 @@ module.exports = {
       }
     }
   },
-  output: {
-    filename: `${PATHS.assets}js/[name].[hash].js`,
-    path: PATHS.dist,
-    // publicPath: "/"
-  },
   module: {
     rules: [
+    {
+      test: /\.pug$/,
+        loader: 'pug-loader?pretty=true'
+    },
     {
       test: /\.js$/,
       loader: 'babel-loader',
@@ -52,10 +56,6 @@ module.exports = {
       test: /\.jsx$/,
       loader: 'babel-loader',
       exclude: '/node_modules/'
-    },
-    {
-      test: /\.pug$/,
-      loader: 'pug-loader?pretty=true'
     },
     {
       test: /\.(png|jpg|gif|svg|webp|jpeg)$/,
@@ -101,20 +101,20 @@ module.exports = {
         }
       ]
     },
-      {
-        test: /\.svg$/,
-        use: [{
-          loader: 'svg-sprite-loader',
-          options: {
-            extract: true,
-            spriteFilename: './static/icons.svg',
-            runtimeCompat: true
-          }
-        },
-          'svg-transform-loader',
-          'svgo-loader'
-        ]
-      }
+    {
+      test: /\.svg$/,
+      use: [{
+        loader: 'svg-sprite-loader',
+        options: {
+          extract: true,
+          spriteFilename: './static/icons.svg',
+          runtimeCompat: true
+        }
+      },
+        'svg-transform-loader',
+        'svgo-loader'
+      ]
+    }
       
   ],
 },
@@ -130,15 +130,17 @@ module.exports = {
       {from: `${PATHS.src}/assets/fonts`, to: `${PATHS.assets}fonts`},
       {from: `${PATHS.src}/static`, to: 'static'},
     ]),
-    ...PAGES.map(page => new HtmlWebpackPlugin({
-      template: `${PAGES_DIR}/${page}`,
-      filename: `./${page.replace(/\.pug/,'.html')}`,  //html
-      title: `${page}`,
-      inject: false
-    })),
     new SpriteLoaderPlugin({
       plainSprite: true
-    })
+    }),
+
+    // Automatic creation any html pages (Don't forget to RERUN dev server)
+    // see more: https://github.com/vedees/webpack-template/blob/master/README.md#create-another-html-files
+    // best way to create pages: https://github.com/vedees/webpack-template/blob/master/README.md#third-method-best
+    ...PAGES.map(page => new HtmlWebpackPlugin({
+      template: `${PAGES_DIR}/${page}`,
+      filename: `./${page.replace(/\.pug/,'.html')}`
+    }))
   ],
 }
 
