@@ -58,10 +58,42 @@ module.exports = {
       exclude: '/node_modules/'
     },
     {
-      test: /\.(png|jpg|gif|svg|webp|jpeg)$/,
-      loader: 'file-loader',
-      options: {  name: '[name].[ext]'  }
-    },
+					test: /\.(gif|png|jpe?g)$/i,
+					use: [
+							{
+									loader: 'file-loader',
+									options: {
+											name: '[name].[ext]',
+											outputPath: './img/compress/'
+									}  
+							},
+							{
+									loader: 'image-webpack-loader',
+									options: {
+										bypassOnDebug: true,
+											mozjpeg: {
+													progressive: true,
+													quality: 65
+											},
+											// optipng.enabled: false will disable optipng
+											optipng: {
+													enabled: false,
+											},
+											pngquant: {
+													quality: '65-90',
+													speed: 4
+											},
+											gifsicle: {
+													interlaced: false,
+											},
+											// the webp option will enable WEBP
+											webp: {
+													quality: 75
+											}
+									}
+							},
+					],
+				},
     {
       test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file-loader',

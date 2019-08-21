@@ -1,6 +1,13 @@
-block variables
-
-
+include ../includes/mixins.pug
+-
+	var arr = [	
+		{link: '#', src: './assets/img/img-1.jpg', title: 'Йога за ногу', descr: 'Lorem ipsum dolor sit amet, consectetur'},
+		{link: 'page2.html', src: './assets/img/img-2.jpg', title: 'Йога за ногу', descr: 'Lorem ipsum dolor sit amet, consectetur'},
+		{link: '#', src: './assets/img/img-3.jpg', title: 'Йога за ногу', descr: 'Lorem ipsum dolor sit amet, consectetur'},
+	];
+	var arrPage2 = [	
+		{link: '#', src: './assets/img/img-2.jpg', title: 'Йога за ногу', descr: 'Lorem ipsum dolor sit amet, consectetur'},
+	];
 doctype html
 html(lang="uk")
 	head
@@ -22,7 +29,15 @@ html(lang="uk")
 		//- meta(name='theme-color', content='#000')
 		//- meta(name='msapplication-navbutton-color', content='#000')
 		//- meta(name='apple-mobile-web-app-status-bar-style', content='#000')
+		block meta
+		block head
+
 	body
-		include ../includes/header
-		block content
-		
+		.page__inner
+			.page__content
+				block header
+				block content
+
+			.page__footer-wrapper
+				block footer
+					p after footer

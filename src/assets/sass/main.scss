@@ -23,12 +23,12 @@ body{
  background-size: cover;
 }
 
-.productItems{
+.row{
 	 @include row-flex();
 	 justify-content: space-around;
 }
 	
-.productItem{
+.card-item {
   @include col();
   @include size(4);
   @include size-md(6);
@@ -45,5 +45,26 @@ body{
    font-size: 24px;
    font-weight: bold;
    text-align: center;
+	}
+	&__img{
+		min-height: 410px;
+		object-fit: contain;
+	}
+}
+
+.page__inner{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .page__content{
+    flex-grow: 1;
   }
+  .page__footer-wrapper{
+    flex-shrink: 0;
+  }
+}
+header,footer{
+    color: #fff;
+    background-color: #000;
+    text-align: center;
 }
