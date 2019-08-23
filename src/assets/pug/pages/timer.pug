@@ -1,0 +1,42 @@
+extends ../layout/main
+
+
+ 
+block meta
+	title timer
+	meta(name='description', content='')
+
+	//- block head
+	//-   link(rel='stylesheet', href='css/some.css'
+	
+block content
+	.overlay
+		.timer-block
+			.decoration-dot.position--top-left
+			.decoration-dot.position--bottom-left
+			button.close-timer.close-timer-js
+			.timer-heading
+				.decoration-dot.position--bottom-right
+				span.timer__subtitle До завершення акції
+				.timer__title-wrap
+					span.icon-wrapper
+						include ../../img/icon/quote.svg
+					h4.timer__title 50 місяців розстрочки
+					span.icon-wrapper.transorm--rotate
+						include ../../img/icon/quote.svg
+				span.timer__subtitle
+					i залишилось
+			#clock.timer
+				div.timer-items
+					span.timer-items__title Днів:
+					span.days.timer-items__count 1
+				div.timer-items
+					span.timer-items__title Годин:
+					span.hours.timer-items__count 11
+				div.timer-items
+					span.timer-items__title Хвилин:
+					span.minutes.timer-items__count 22
+				div.timer-items
+					span.timer-items__title Секунд:
+					span.seconds.timer-items__count 33
+			a(href='#').timer-more-btn Детальніше

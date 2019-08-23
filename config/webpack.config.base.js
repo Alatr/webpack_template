@@ -56,44 +56,39 @@ module.exports = {
       test: /\.jsx$/,
       loader: 'babel-loader',
       exclude: '/node_modules/'
-    },
+		},
     {
-					test: /\.(gif|png|jpe?g)$/i,
-					use: [
-							{
-									loader: 'file-loader',
-									options: {
-											name: '[name].[ext]',
-											outputPath: './img/compress/'
-									}  
-							},
-							{
-									loader: 'image-webpack-loader',
-									options: {
-										bypassOnDebug: true,
-											mozjpeg: {
-													progressive: true,
-													quality: 65
-											},
-											// optipng.enabled: false will disable optipng
-											optipng: {
-													enabled: false,
-											},
-											pngquant: {
-													quality: '65-90',
-													speed: 4
-											},
-											gifsicle: {
-													interlaced: false,
-											},
-											// the webp option will enable WEBP
-											webp: {
-													quality: 75
-											}
-									}
-							},
-					],
+			test: /\.(gif|svg|png|jpe?g)$/i,
+			use: [
+				{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							outputPath: `${PATHS.assets}img`
+						}  
 				},
+				{
+					loader: 'image-webpack-loader',
+						options: {
+							mozjpeg: {
+									progressive: true,
+									quality: 95
+							},
+							// optipng.enabled: false will disable optipng
+							optipng: {
+									enabled: false,
+							},
+							pngquant: {
+									quality: '65-90',
+									speed: 4
+							},
+							gifsicle: {
+									interlaced: false,
+							}
+						}
+				},
+			],
+		},
     {
       test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file-loader',
@@ -135,7 +130,8 @@ module.exports = {
     },
     {
       test: /\.svg$/,
-      use: [{
+      use: [
+				{
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
@@ -157,7 +153,7 @@ module.exports = {
     }),
     
     new CopyWebpackPlugin ([
-      {from: `${PATHS.src}/assets/img`, to: `${PATHS.assets}img`},
+      //{from: `${PATHS.src}/assets/img`, to: `${PATHS.assets}img`},
       {from: `${PATHS.src}/assets/uploads`, to: `${PATHS.assets}uploads`},
       {from: `${PATHS.src}/assets/fonts`, to: `${PATHS.assets}fonts`},
       {from: `${PATHS.src}/static`, to: 'static'},
