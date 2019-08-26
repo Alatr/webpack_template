@@ -22,10 +22,11 @@ module.exports = {
   },
   
   entry: {
-    app: PATHS.src
+    app: PATHS.src,
+    page1: `${PATHS.src}/assets/js/page1`
   },
   output: {
-    filename: `${PATHS.assets}js/[name].[hash].js`,
+    filename: `${PATHS.assets}js/[name].js`,
     path: PATHS.dist,
     // publicPath: "/"
   },
@@ -58,39 +59,7 @@ module.exports = {
       exclude: '/node_modules/'
 		},
     {
-			test: /\.(gif|svg|png|jpe?g)$/i,
-			use: [
-				{
-						loader: 'file-loader',
-						options: {
-							name: '[name].[ext]',
-							outputPath: `${PATHS.assets}img`
-						}  
-				},
-				{
-					loader: 'image-webpack-loader',
-						options: {
-							mozjpeg: {
-									progressive: true,
-									quality: 95
-							},
-							// optipng.enabled: false will disable optipng
-							optipng: {
-									enabled: false,
-							},
-							pngquant: {
-									quality: '65-90',
-									speed: 4
-							},
-							gifsicle: {
-									interlaced: false,
-							}
-						}
-				},
-			],
-		},
-    {
-      test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file-loader',
       options: {  name: '[name].[ext]'  }
     },
@@ -128,28 +97,70 @@ module.exports = {
         }
       ]
     },
+    
     {
+			test: /\.(gif|png|jpe?g)$/i,
+			use: [
+				{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+              outputPath: `${PATHS.assets}img`
+              //exclude: [resolve(`${PATHS.assets}img/icons/`)]
+						}  
+				},
+				{
+					loader: 'image-webpack-loader',
+						options: {
+							mozjpeg: {
+									progressive: true,
+									quality: 95
+							},
+							// optipng.enabled: false will disable optipng
+							optipng: {
+									enabled: false,
+							},
+							pngquant: {
+									quality: '65-90',
+									speed: 4
+							},
+							gifsicle: {
+									interlaced: false,
+							}
+						}
+				},
+			],
+		},
+    {
+      
       test: /\.svg$/,
       use: [
-				{
-        loader: 'svg-sprite-loader',
-        options: {
-          extract: true,
-          spriteFilename: './static/icons.svg',
-          runtimeCompat: true
-        }
+          // {
+          //     loader: 'file-loader',
+          //     options: {
+          //       name: '[name].[ext]',
+          //       outputPath: `${PATHS.assets}wer`
+          //       //exclude: [resolve(`${PATHS.assets}img/icons/`)]
+          //     }  
+          // },
+            {
+              loader: 'svg-sprite-loader',
+              options: {
+                extract: true,
+                runtimeCompat: true,
+                spriteFilename: './static/ic.svg'
+              }
       },
         'svg-transform-loader',
         'svgo-loader'
       ]
-    }
-      
+    },  
   ],
 },
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `${PATHS.assets}css/[name].[hash].css`
+      filename: `${PATHS.assets}css/[name].css`
     }),
     
     new CopyWebpackPlugin ([
@@ -167,7 +178,8 @@ module.exports = {
     // best way to create pages: https://github.com/vedees/webpack-template/blob/master/README.md#third-method-best
     ...PAGES.map(page => new HtmlWebpackPlugin({
       template: `${PAGES_DIR}/${page}`,
-      filename: `./${page.replace(/\.pug/,'.html')}`
+      filename: `./${page.replace(/\.pug/,'.html')}`,
+      inject: false
     }))
   ],
 }
