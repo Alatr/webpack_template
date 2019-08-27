@@ -22,26 +22,26 @@ module.exports = {
   },
   
   entry: {
-    app: PATHS.src,
-    page1: `${PATHS.src}/assets/js/page1`
+		app: PATHS.src,
+    page1: `${PATHS.src}/assets/js/page1`,
   },
   output: {
-    filename: `${PATHS.assets}js/[name].js`,
+    filename: `${PATHS.assets}js/[name].[hash].js`,
     path: PATHS.dist,
     // publicPath: "/"
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          name: 'vendors',
-          test: /node_modules/,
-          chunks: 'all',
-          enforce: true
-        }
-      }
-    }
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       vendor: {
+  //         name: 'vendors',
+  //         test: /node_modules/,
+  //         chunks: 'all',
+  //         enforce: true
+  //       }
+  //     }
+  //   }
+  // },
   module: {
     rules: [
     {
@@ -160,7 +160,7 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `${PATHS.assets}css/[name].css`
+      filename: `${PATHS.assets}css/[name].[hash].css`
     }),
     
     new CopyWebpackPlugin ([
@@ -170,7 +170,10 @@ module.exports = {
       {from: `${PATHS.src}/static`, to: 'static'},
     ]),
     new SpriteLoaderPlugin({
-      plainSprite: true
+			plainSprite: true,
+			spriteAttrs : { 
+        id : 'svg-sprite' 
+      }
     }),
 
     // Automatic creation any html pages (Don't forget to RERUN dev server)

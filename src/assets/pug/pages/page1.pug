@@ -7,9 +7,12 @@ block meta
 	meta(name='description', content='')
 
 block head
-	link(rel='stylesheet', href='assets/css/app.css')
+	each css in htmlWebpackPlugin.files.css
+		link(rel='stylesheet', href=css)
 block scripts
-	script(src='assets/js/page1.js')
+	script(type='text/javascript', src=htmlWebpackPlugin.files.js[0])
+	script(type='text/javascript', src=htmlWebpackPlugin.files.js[1])
+	//script(type='text/javascript', src=htmlWebpackPlugin.files.js[1])
 	
 block content
 	p after header
@@ -22,4 +25,4 @@ block footer
 		h2 я footer ёпть
 block header
 	header
-		h2 я heder ёпть
+		h2 я heder второй стр. ёпть!

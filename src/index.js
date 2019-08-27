@@ -12,7 +12,16 @@ import App from "./js/common";
 function requireAll(r) {
 	r.keys().forEach(r);
 }
-requireAll(require.context('../src/q/', true, /\.svg$/));
+requireAll(require.context('../src/assets/img/icon/', true, /\.svg$/));
 requireAll(require.context('../src/assets/img/', true, /\.(gif|png|jpe?g)$/i));
+
+console.log('index-page')
+// import BrowserSprite from 'svg-baker-runtime/src/browser-sprite';
+// import domready from 'domready';
+ 
+// const sprite = new BrowserSprite();
+// domready(() => sprite.mount('#svg-sprite'));
+ 
+// export default sprite; 
 
 

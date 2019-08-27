@@ -1,6 +1,6 @@
 const sum = (a,b) => a + b;
 
-console.log(sum(2,6));
+//console.log(sum(2,6));
 
 
 import React, { Component } from "react";
